@@ -22,17 +22,18 @@ def run_discord_bot():
     TOKEN = os.getenv("DISCORD_TOKEN")
     
     # 元のコードで使用されていた Intents.all() を使用
-    client = discord.Client(intents=discord.Intents.all())
+    intents = discord.Intents.all()
+    bot = discord.Bot(intents=intents)
 
     
-    @client.event
+    @bot.event
     async def on_ready():
         # ログ出力（元のコードのまま）
-        print(f'We have logged in as {client.user}')
+        print(f'We have logged in as {bot.user}')
         
-    @client.event
+    @bot.event
     async def on_message(message):
-        if message.author == client.user:
+        if message.author == bot.user:
             return
        
         content = message.content
@@ -42,12 +43,19 @@ def run_discord_bot():
             await message.channel.send(f'<@1273962567642910733> {response}')
         if 'command' in content:
             await message.channel.send('コマンドは応答しませんでした⚠')
+            
+        await bot.process_application_commands(message)
+            # -----------------
+            # スラッシュコマンド
+            # -----------------
+    @bot.command(name="call", description="人を呼び出します")
+    async def call(ctx, name: str):
+    await ctx.respond(f"おい {name}！（唐突）")
     
     # --- Botの実行 ---
-    if TOKEN:
         try:
-            # 元のコードにあった client.run(TOKEN) のみを実行
-            client.run(TOKEN)
+            # 元のコードにあった bot.run(TOKEN) のみを実行
+            bot.run(TOKEN)
         except Exception as e:
             print(f"Discord Bot 起動失敗: {e}")
     else:
