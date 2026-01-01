@@ -22,15 +22,17 @@ def run_discord_bot():
     TOKEN = os.getenv("DISCORD_TOKEN")
     
     # 元のコードで使用されていた Intents.all() を使用
-    bot = discord.Bot(intents=discord.Intents.all())
-
     
-    @bot.event
+    client = discord.Client(intents=discord.Intents.default())
+    tree = app_commands.CommandTree(client)
+
+    @client.event
     async def on_ready():
         # ログ出力（元のコードのまま）
         print(f'We have logged in as {bot.user}')
-        await bot.tree.sync()
+        await tree.sync()
         print("Slash commands synced.")
+
         
     @bot.event
     async def on_message(message):
@@ -45,13 +47,13 @@ def run_discord_bot():
         if 'command' in content:
             await message.reply('コマンドは応答しませんでした⚠')
             
-        await bot.process_commands(message)
             # -----------------
             # スラッシュコマンド
             # -----------------
-    @bot.tree.command(name="call", description="人を呼び出します")
+    @tree.command(name="call", description="呼び出す")
     async def call(interaction: discord.Interaction, name: str):
         await interaction.response.send_message(f"おい {name}！（唐突）")
+
 
     
     # --- Botの実行 ---
