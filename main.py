@@ -50,7 +50,7 @@ def run_discord_bot():
             # -----------------
     @bot.command(name="call", description="人を呼び出します")
     async def call(ctx, name: str):
-    await ctx.respond(f"おい {name}！（唐突）")
+        await ctx.respond(f"おい {name}！（唐突）")
     
     # --- Botの実行 ---
         try:
