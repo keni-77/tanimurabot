@@ -53,6 +53,7 @@ def run_discord_bot():
         await ctx.respond(f"おい {name}！（唐突）")
     
     # --- Botの実行 ---
+    if TOKEN:
         try:
             # 元のコードにあった bot.run(TOKEN) のみを実行
             bot.run(TOKEN)
