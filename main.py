@@ -56,7 +56,7 @@ def run_discord_bot():
 # -----------------
 # Webサーバーのエンドポイント (gunicornがアクセスする場所)
 # -----------------
-@app.route('/')
+@app.route('/', methods=['GET', 'HEAD'])
 def home():
     global bot_start_attempted
     
