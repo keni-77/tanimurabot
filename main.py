@@ -41,7 +41,7 @@ def run_discord_bot():
             response = random.choice(tanimura)
             await message.channel.send(f'<@1273962567642910733> {response}')
         if 'command' in content:
-            await message.channel.send('コマンドは応答しませんでした⚠')
+            await message.reply('コマンドは応答しませんでした⚠')
             
         await bot.process_application_commands(message)
             # -----------------
