@@ -29,14 +29,14 @@ def run_discord_bot():
     @client.event
     async def on_ready():
         # ログ出力（元のコードのまま）
-        print(f'We have logged in as {bot.user}')
+        print(f'We have logged in as {client.user}')
         await tree.sync()
         print("Slash commands synced.")
 
         
-    @bot.event
+    @client.event
     async def on_message(message):
-        if message.author == bot.user:
+        if message.author == client.user:
             return
        
         content = message.content
@@ -60,7 +60,7 @@ def run_discord_bot():
     if TOKEN:
         try:
             # 元のコードにあった bot.run(TOKEN) のみを実行
-            bot.run(TOKEN)
+            client.run(TOKEN)
         except Exception as e:
             print(f"Discord Bot 起動失敗: {e}")
     else:
