@@ -54,16 +54,13 @@ def run_discord_bot():
         if message.content.strip():  # メッセージが空でない場合
             try:
                 channel = await client.fetch_channel(channel_id)  # チャンネルを取得
+                
                 print(f'メッセージを受信しました: {content}')
                 print(f'チャンネル {channel.name} にメッセージを送信しようとしています: {content}')
-
-                send_task = channel.send(f'#{channel.name} で@{message.author.name} からのメッセージ: {content}') # メッセージを送信
-                print('送信タスクを開始しました')
-
+                
+                send_task = channel.send(f'#{message.channel.name} で@{message.author.name} からのメッセージ: {content}') # メッセージを送信 
                 await send_task  # 送信タスクが完了するまで待機
                 print('送信タスクが完了しました')
-
-                print(f'メッセージをチャンネル {channel.name} に送信しました: {content}')
 
             except Exception as e:  # エラーが発生した場合
                 print(f'エラー: {e}')
