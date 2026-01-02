@@ -69,8 +69,8 @@ def run_discord_bot():
 
                 embed.add_field(name="サーバー", value=f"{message.guild.name}", inline=True)
                 embed.add_field(name="チャンネル", value=f"#{message.channel.name}", inline=True)
-                embed.add_field(name="送信者", value=f"{message.author.display_name}\n`{message.author.mention}`", inline=False)
-                embed.set_image(url=message.author.avatar.url)
+                embed.add_field(name="送信者", value=f"**{message.author.display_name}**\n{message.author.mention}", inline=False)
+                embed.set_thumbnail(url=message.author.avatar.url)
                 embed.set_footer(text=f"User ID: {message.author.id} | Channel ID: {message.channel.id} | Server ID: {message.guild.id}")
 
                 send_task = channel.send(embed=embed)
