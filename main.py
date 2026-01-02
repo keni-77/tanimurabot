@@ -21,10 +21,13 @@ def run_discord_bot():
     tanimura = ['黙れ', 'おい、谷村　姿勢正せ（山田風）', 'ダカラナニー']
     # 環境変数からトークンを取得
     TOKEN = os.getenv("DISCORD_TOKEN")
+
     
-    # 元のコードで使用されていた Intents.all() を使用
+    intents = discord.Intents.all()
+    client = discord.Client(intents=intents)
+    intents.message_content = True  # メッセージ内容の受信を有効化
+    intents.messages = True  # メッセージの受信を有効化
     
-    client = discord.Client(intents=discord.Intents.default())
     tree = app_commands.CommandTree(client)
 
     @client.event
