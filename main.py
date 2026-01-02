@@ -32,7 +32,7 @@ def run_discord_bot():
         # ログ出力（元のコードのまま）
         print(f'We have logged in as {client.user}')
         await tree.sync()
-        print("Slash commands synced.")
+        print('Slash commands synced.')
 
         
     @client.event
@@ -51,9 +51,9 @@ def run_discord_bot():
             # -----------------
             # スラッシュコマンド
             # -----------------
-    @tree.command(name="call", description="呼び出す")
-    async def test(interaction: discord.Interaction, name: str):
-        await interaction.response.send_message(f"おい {name}！（唐突）")
+    @tree.command(name='call', description='呼び出す')
+    async def test(interaction: discord.Interaction):
+        await interaction.response.send_message(f'おいTNMRァ！（唐突）')
 
 
     
@@ -63,9 +63,9 @@ def run_discord_bot():
             # 元のコードにあった bot.run(TOKEN) のみを実行
             client.run(TOKEN)
         except Exception as e:
-            print(f"Discord Bot 起動失敗: {e}")
+            print(f'Discord Bot 起動失敗: {e}')
     else:
-        print("エラー: Botトークンが設定されていません。")
+        print('エラー: Botトークンが設定されていません。')
 
 # -----------------
 # Webサーバーのエンドポイント (gunicornがアクセスする場所)
@@ -76,13 +76,13 @@ def home():
     
     # Botがまだ起動を試みていない場合のみ、Botを別スレッドで起動
     if not bot_start_attempted:
-        print("Webアクセスを検知。Discord Botの起動を試みます...")
+        print('Webアクセスを検知。Discord Botの起動を試みます...')
         bot_start_attempted = True
         
         # Botを別スレッドで起動
         Thread(target=run_discord_bot).start()
         
-        return "Discord Bot is initializing..."
+        return 'Discord Bot is initializing...'
     
     # Bot起動試行済みの場合は、Renderのヘルスチェックに応答
-    return "Bot is alive!"
+    return 'Bot is alive!'
