@@ -40,7 +40,11 @@ def run_discord_bot():
         
     @client.event
     async def on_message(message):
+        # 自分のメッセージを無視
         if message.author == client.user:
+            return
+        # 他のBotのメッセージを無視
+        if message.author.bot:
             return
         tanimura = ['黙れ', 'おい、谷村　姿勢正せ（山田風）', 'ダカラナニー']
         content = message.content
