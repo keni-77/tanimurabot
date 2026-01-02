@@ -63,7 +63,7 @@ def run_discord_bot():
                 embed = discord.Embed(
                     title="メッセージログ",
                     description=f"{content}",
-                    color=0x3498db
+                    color=0x3498db,
                     timestamp=jst_time
                 )
 
