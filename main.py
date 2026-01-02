@@ -58,13 +58,20 @@ def run_discord_bot():
         if message.content.strip():  # メッセージが空でない場合
             try:
                 channel = await client.fetch_channel(channel_id)  # チャンネルを取得
-                
-                print(f'メッセージを受信しました: {content}')
-                print(f'チャンネル {channel.name} にメッセージを送信しようとしています: {content}')
-                
-                send_task = channel.send(f'【{message.guild.name}】の**#{message.channel.name}**で@{message.author.name}からのメッセージ：{content}') # メッセージを送信 
-                await send_task  # 送信タスクが完了するまで待機
-                print('送信タスクが完了しました')
+                embed = discord.Embed(
+                    title="メッセージログ",
+                    description=f"{content}",
+                    color=0x3498db
+                )
+
+                embed.add_field(name="サーバー", value=message.guild.name, inline=False)
+                embed.add_field(name="チャンネル", value=f"#{message.channel.name}", inline=False)
+                embed.add_field(name="送信者", value=f"{message.author.display_name} ({message.author.mention})", inline=False)
+
+                embed.set_footer(text=f"User ID: {message.author.id} | Channel ID: {message.channel.id}")
+
+                send_task = channel.send(embed=embed)
+                await send_task
 
             except Exception as e:  # エラーが発生した場合
                 print(f'エラー: {e}')
