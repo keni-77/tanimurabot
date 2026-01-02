@@ -73,7 +73,7 @@ def run_discord_bot():
             # スラッシュコマンド
             # -----------------
     @tree.command(name='call', description='呼び出す')
-    async def test(interaction: discord.Interaction, user: str):
+    async def test(interaction: discord.Interaction, user: discord.User):
         await interaction.response.send_message(f'おい{user}ァ！（唐突）')
 
 
