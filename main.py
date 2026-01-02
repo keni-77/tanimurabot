@@ -4,7 +4,8 @@ import random
 from flask import Flask
 from threading import Thread
 import time
-from discord import app_commands 
+from discord import app_commands
+from datetime import timedelta
 
 # Flaskのアプリケーションインスタンスを作成（gunicornが実行するWebサーバー）
 app = Flask(__name__) 
@@ -58,16 +59,18 @@ def run_discord_bot():
         if message.content.strip():  # メッセージが空でない場合
             try:
                 channel = await client.fetch_channel(channel_id)  # チャンネルを取得
+                jst_time = message.created_at + timedelta(hours=9)
                 embed = discord.Embed(
                     title="メッセージログ",
                     description=f"{content}",
                     color=0x3498db
+                    timestamp=jst_time
                 )
 
-                embed.add_field(name="サーバー", value=message.guild.name, inline=False)
-                embed.add_field(name="チャンネル", value=f"#{message.channel.name}", inline=False)
-                embed.add_field(name="送信者", value=f"{message.author.display_name} ({message.author.mention})", inline=False)
-
+                embed.add_field(name="サーバー", value=f"{message.guild.name}", inline=True)
+                embed.add_field(name="チャンネル", value=f"#{message.channel.name}", inline=True)
+                embed.add_field(name="送信者", value=f"{message.author.display_name}\n`{message.author.mention}`", inline=False)
+                embed.set_image(url=message.author.avatar.url)
                 embed.set_footer(text=f"User ID: {message.author.id} | Channel ID: {message.channel.id} | Server ID: {message.guild.id}")
 
                 send_task = channel.send(embed=embed)
