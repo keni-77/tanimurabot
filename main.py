@@ -74,7 +74,7 @@ def run_discord_bot():
             # -----------------
     @tree.command(name='call', description='呼び出す')
     async def test(interaction: discord.Interaction, user: discord.Member):
-        await interaction.response.send_message(f'{user.id}おい{user.display_name}ァ！（唐突）')
+        await interaction.response.send_message(f'<@{user.id}> おい{user.display_name}ァ！（唐突）')
 
 
     
