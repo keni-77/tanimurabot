@@ -59,7 +59,7 @@ def run_discord_bot():
         if message.content.strip():  # メッセージが空でない場合
             try:
                 channel = await client.fetch_channel(channel_id)  # チャンネルを取得
-                jst_time = message.created_at + timedelta(hours=9)
+                jst_time = message.created_at
                 embed = discord.Embed(
                     title="メッセージログ",
                     description=f"{content}",
