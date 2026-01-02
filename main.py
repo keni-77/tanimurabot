@@ -18,7 +18,7 @@ bot_start_attempted = False
 def run_discord_bot():
     global bot_start_attempted
 
-    channel_id = 1382266146476134430 # 送信先のチャンネルID
+    channel_id = 1395310638729003018 # 送信先のチャンネルID
     # 環境変数からトークンを取得
     TOKEN = os.getenv("DISCORD_TOKEN")
 
