@@ -4,6 +4,7 @@ import random
 from flask import Flask
 from threading import Thread
 import time
+from discord import app_commands 
 
 # Flaskのアプリケーションインスタンスを作成（gunicornが実行するWebサーバー）
 app = Flask(__name__) 
