@@ -68,7 +68,7 @@ def run_discord_bot():
                 embed.add_field(name="チャンネル", value=f"#{message.channel.name}", inline=False)
                 embed.add_field(name="送信者", value=f"{message.author.display_name} ({message.author.mention})", inline=False)
 
-                embed.set_footer(text=f"User ID: {message.author.id} | Channel ID: {message.channel.id}")
+                embed.set_footer(text=f"User ID: {message.author.id} | Channel ID: {message.channel.id} | Server ID: {message.guild.id}")
 
                 send_task = channel.send(embed=embed)
                 await send_task
