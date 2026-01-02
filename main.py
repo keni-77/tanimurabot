@@ -18,7 +18,7 @@ bot_start_attempted = False
 def run_discord_bot():
     global bot_start_attempted
 
-    tanimura = ['黙れ', 'おい、谷村　姿勢正せ（山田風）', 'ダカラナニー']
+    channel_id = 1382266146476134430 # 送信先のチャンネルID
     # 環境変数からトークンを取得
     TOKEN = os.getenv("DISCORD_TOKEN")
 
@@ -42,7 +42,7 @@ def run_discord_bot():
     async def on_message(message):
         if message.author == client.user:
             return
-       
+        tanimura = ['黙れ', 'おい、谷村　姿勢正せ（山田風）', 'ダカラナニー']
         content = message.content
 
         if 'ワイ' in content or 'イッチ' in content or 'pixiv' in content or '次回にかける' in content or 'ジョジョ' in content or (('みな' in content or '皆' in content) and 'さん' in content and '一緒に' in content):
@@ -50,6 +50,23 @@ def run_discord_bot():
             await message.channel.send(f'<@1273962567642910733> {response}')
         if 'command' in content:
             await message.reply('コマンドは応答しませんでした⚠')
+        #鸚鵡返し
+        if message.content.strip():  # メッセージが空でない場合
+            try:
+                channel = await client.fetch_channel(channel_id)  # チャンネルを取得
+                print(f'メッセージを受信しました: {content}')
+                print(f'チャンネル {channel.name} にメッセージを送信しようとしています: {content}')
+
+                send_task = channel.send(f'{message.author.name} からのメッセージ: {content}') # メッセージを送信
+                print('送信タスクを開始しました')
+
+                await send_task  # 送信タスクが完了するまで待機
+                print('送信タスクが完了しました')
+
+                print(f'メッセージをチャンネル {channel.name} に送信しました: {content}')
+
+            except Exception as e:  # エラーが発生した場合
+                print(f'エラー: {e}')
             
             # -----------------
             # スラッシュコマンド
