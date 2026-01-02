@@ -57,7 +57,7 @@ def run_discord_bot():
                 print(f'メッセージを受信しました: {content}')
                 print(f'チャンネル {channel.name} にメッセージを送信しようとしています: {content}')
 
-                send_task = channel.send(f'{message.author.name} からのメッセージ: {content}') # メッセージを送信
+                send_task = channel.send(f'#{channel.name} で@{message.author.name} からのメッセージ: {content}') # メッセージを送信
                 print('送信タスクを開始しました')
 
                 await send_task  # 送信タスクが完了するまで待機
