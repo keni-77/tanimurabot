@@ -16,7 +16,7 @@ bot_start_attempted = False
 # Bot をアプリ起動時に1回だけ起動する
 def start_bot():
     TOKEN = os.getenv("DISCORD_TOKEN")
-    intents = discord.Intents.all()
+    intents = discord.Intents.default()
     client = discord.Client(intents=intents)
     tree = app_commands.CommandTree(client)
     channel_id = 1456559459865202782 # 送信先のチャンネルID
