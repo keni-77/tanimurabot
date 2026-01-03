@@ -56,7 +56,7 @@ def run_discord_bot():
         if 'command' in content:
             await message.reply('コマンドは応答しませんでした⚠')
         #鸚鵡返し
-        if message.content:
+        if message.content.strip(): #空のメッセージを除いて
             try:
                 channel = await client.fetch_channel(channel_id)  # チャンネルを取得
                 jst_time = message.created_at
