@@ -85,3 +85,6 @@ def start_bot():
         await interaction.response.send_message(f'<@{user.id}> おい{user.display_name}ァ！（唐突）')
 
     client.run(TOKEN)
+    @app.route('/healthz', methods=['GET', 'HEAD'])
+    def health_check():
+        return '', 200
