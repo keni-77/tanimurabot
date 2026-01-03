@@ -1,8 +1,6 @@
 import discord
 import os
 import random
-from flask import Flask
-from threading import Thread
 import time
 from discord import app_commands
 from datetime import timedelta
@@ -87,12 +85,3 @@ def start_bot():
         await interaction.response.send_message(f'<@{user.id}> おい{user.display_name}ァ！（唐突）')
 
     client.run(TOKEN)
-    
-# Flask 起動時に Bot を1回だけ起動
-Thread(target=start_bot).start()
-        
-# Webサーバーのエンドポイント (gunicornがアクセスする場所)
-@app.route('/', methods=['GET', 'HEAD'])
-def home():
-    # Bot起動試行済みの場合は、Renderのヘルスチェックに応答
-    return 'Bot is alive!'
