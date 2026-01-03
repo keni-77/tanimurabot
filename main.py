@@ -13,13 +13,13 @@ app = Flask(__name__)
 # グローバルフラグ：Botが起動を試みたかを示す
 bot_start_attempted = False
 
-# ---Discord Bot本体の起動関数---
-def run_discord_bot():
-    global bot_start_attempted
-
-    channel_id = 1456559459865202782 # 送信先のチャンネルID
-    # 環境変数からトークンを取得
+# Bot をアプリ起動時に1回だけ起動する
+def start_bot():
     TOKEN = os.getenv("DISCORD_TOKEN")
+    intents = discord.Intents.all()
+    client = discord.Client(intents=intents)
+    tree = app_commands.CommandTree(client)
+    channel_id = 1456559459865202782 # 送信先のチャンネルID
 
     # ---定義---
     intents = discord.Intents.all()
@@ -52,7 +52,7 @@ def run_discord_bot():
         att = message.attachments
         
         # ---谷村を黙らせる---
-        if 'ワイ' in content or 'イッチ' in content or 'pixiv' in content or '次回にかける' in content or 'ジョジョ' in content or (('みな' in content or '皆' in content) and 'さん' in content and '一緒に' in content):
+        if 'ワイ' in content or 'イッチ' in content or 'pixiv' in content or '次回にかける' in content or 'ジョジョ' in content:
             response = random.choice(tanimura) #tanimuraの要素から１つランダムに選ぶ
             await message.reply(f'{response}')
 
@@ -92,31 +92,14 @@ def run_discord_bot():
     @tree.command(name='call', description='他人を呼び出します')
     async def test(interaction: discord.Interaction, user: discord.Member):
         await interaction.response.send_message(f'<@{user.id}> おい{user.display_name}ァ！（唐突）')
-        
-    # ---Botの実行---
-    if TOKEN:
-        try:
-            # 元のコードにあった bot.run(TOKEN) のみを実行
-            client.run(TOKEN)
-        except Exception as e:
-            print(f'Discord Bot 起動失敗: {e}')
-    else:
-        print('エラー: Botトークンが設定されていません。')
+
+    client.run(TOKEN)
+    
+# Flask 起動時に Bot を1回だけ起動
+Thread(target=start_bot).start()
         
 # Webサーバーのエンドポイント (gunicornがアクセスする場所)
 @app.route('/', methods=['GET', 'HEAD'])
 def home():
-    global bot_start_attempted
-    
-    # Botがまだ起動を試みていない場合のみ、Botを別スレッドで起動
-    if not bot_start_attempted:
-        print('Webアクセスを検知。Discord Botの起動を試みます...')
-        bot_start_attempted = True
-        
-        # Botを別スレッドで起動
-        Thread(target=run_discord_bot).start()
-        
-        return 'Discord Bot is initializing...'
-    
     # Bot起動試行済みの場合は、Renderのヘルスチェックに応答
     return 'Bot is alive!'
