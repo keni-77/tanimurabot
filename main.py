@@ -15,7 +15,8 @@ bot_start_attempted = False
 # Bot をアプリ起動時に1回だけ起動する
 def start_bot():
     TOKEN = os.getenv("DISCORD_TOKEN")
-    intents = discord.Intents.default()
+    intents = discord.Intents.all()
+    intents.message_content = True
     client = discord.Client(intents=intents)
     tree = app_commands.CommandTree(client)
     channel_id = 1456559459865202782 # 送信先のチャンネルID
@@ -86,6 +87,6 @@ def start_bot():
         await interaction.response.send_message(f'<@{user.id}> おい{user.display_name}ァ！（唐突）')
 
     client.run(TOKEN)
-    @app.route('/healthz', methods=['GET', 'HEAD'])
-    def health_check():
-        return '', 200
+@app.route('/healthz', methods=['GET', 'HEAD'])
+def health_check():
+    return '', 200
