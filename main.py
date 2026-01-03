@@ -87,6 +87,6 @@ def start_bot():
         await interaction.response.send_message(f'<@{user.id}> おい{user.display_name}ァ！（唐突）')
 
     client.run(TOKEN)
-@app.route('/healthz', methods=['GET', 'HEAD'])
-def health_check():
-    return '', 200
+@app.route('/', methods=['GET', 'HEAD'])
+def home(): # Bot起動試行済みの場合は、Renderのヘルスチェックに応答
+    return 'Bot is alive!'
