@@ -84,7 +84,7 @@ def run_discord_bot():
                 
                 if file_text:
                     embed.add_field(name="ファイル", value=file_text, inline=False)
-                embed.set_thumbnail(url=message.author.avatar.url)
+                embed.set_thumbnail(url=message.author.display_avatar.url)
                 embed.set_footer(text=f"User ID: {message.author.id} | Channel ID: {message.channel.id} | Server ID: {message.guild.id}")
 
                 send_task = channel.send(embed=embed)
