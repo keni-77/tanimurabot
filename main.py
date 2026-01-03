@@ -47,8 +47,12 @@ def run_discord_bot():
         # 他のBotのメッセージを無視
         if message.author.bot:
             return
+        if not message.content.strip() and not message.attachments:
+            return
+
         tanimura = ['黙れ', 'おい、谷村　姿勢正せ（山田風）', 'ダカラナニー']
         content = message.content
+        att = message.attachments
 
         if 'ワイ' in content or 'イッチ' in content or 'pixiv' in content or '次回にかける' in content or 'ジョジョ' in content or (('みな' in content or '皆' in content) and 'さん' in content and '一緒に' in content):
             response = random.choice(tanimura)
@@ -56,7 +60,7 @@ def run_discord_bot():
         if 'command' in content:
             await message.reply('コマンドは応答しませんでした⚠')
         #鸚鵡返し
-        if message.content.strip(): #空のメッセージを除いて
+        if content.strip() or att: #メッセージかファイルを受け取ったとき
             try:
                 channel = await client.fetch_channel(channel_id)  # チャンネルを取得
                 jst_time = message.created_at
@@ -70,11 +74,11 @@ def run_discord_bot():
                 embed.add_field(name="サーバー", value=f"{message.guild.name}", inline=True)
                 embed.add_field(name="チャンネル", value=f"#{message.channel.name}", inline=True)
                 embed.add_field(name="送信者", value=f"**{message.author.display_name}**\n{message.author.mention}", inline=False)
-                attachments = message.attachments
-                if len(attachments) == 1:
-                    file_text = f"1件のファイル: {attachments[0].filename}"
-                elif len(attachments) > 1:
-                    file_text = f"{len(attachments)} 件のファイル"
+
+                if len(att) == 1:
+                    file_text = f"1件のファイル: {att[0].filename}"
+                elif len(att) > 1:
+                    file_text = f"{len(att)} 件のファイル"
                 else:
                     file_text = None
                 
