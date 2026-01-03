@@ -21,13 +21,6 @@ def start_bot():
     tree = app_commands.CommandTree(client)
     channel_id = 1456559459865202782 # 送信先のチャンネルID
 
-    # ---定義---
-    intents = discord.Intents.all()
-    client = discord.Client(intents=intents)
-    intents.message_content = True  # メッセージ内容の受信を有効化
-    intents.messages = True  # メッセージの受信を有効化
-    tree = app_commands.CommandTree(client)
-
     @client.event
     async def on_ready():
         # ログ出力（元のコードのまま）
