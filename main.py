@@ -49,6 +49,8 @@ def run_discord_bot():
             return
         if not message.content.strip() and not message.attachments:
             return
+        if message.webhook_id:
+            return
 
         tanimura = ['黙れ', 'おい、谷村　姿勢正せ（山田風）', 'ダカラナニー']
         content = message.content
@@ -84,7 +86,8 @@ def run_discord_bot():
                 
                 if file_text:
                     embed.add_field(name="ファイル", value=file_text, inline=False)
-                embed.set_thumbnail(url=message.author.display_avatar.url)
+                if message.author:
+                    embed.set_thumbnail(url=message.author.display_avatar.url)
                 embed.set_footer(text=f"User ID: {message.author.id} | Channel ID: {message.channel.id} | Server ID: {message.guild.id}")
 
                 send_task = channel.send(embed=embed)
