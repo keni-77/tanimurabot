@@ -56,7 +56,7 @@ def run_discord_bot():
         if 'command' in content:
             await message.reply('コマンドは応答しませんでした⚠')
         #鸚鵡返し
-        if message.content.strip():  # メッセージが空でない場合
+        if message.content:
             try:
                 channel = await client.fetch_channel(channel_id)  # チャンネルを取得
                 jst_time = message.created_at
@@ -72,7 +72,7 @@ def run_discord_bot():
                 embed.add_field(name="送信者", value=f"**{message.author.display_name}**\n{message.author.mention}", inline=False)
                 attachments = message.attachments
                 if len(attachments) == 1:
-                    file_text = f"{attachments[0].filename}"
+                    file_text = f"1件のファイル: {attachments[0].filename}"
                 elif len(attachments) > 1:
                     file_text = f"{len(attachments)} 件のファイル"
                 else:
