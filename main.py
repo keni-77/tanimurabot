@@ -70,6 +70,16 @@ def run_discord_bot():
                 embed.add_field(name="サーバー", value=f"{message.guild.name}", inline=True)
                 embed.add_field(name="チャンネル", value=f"#{message.channel.name}", inline=True)
                 embed.add_field(name="送信者", value=f"**{message.author.display_name}**\n{message.author.mention}", inline=False)
+                attachments = message.attachments
+                if len(attachments) == 1:
+                    file_text = f"{attachments[0].filename}"
+                elif len(attachments) > 1:
+                    file_text = f"{len(attachments)} 件のファイル"
+                else:
+                    file_text = None
+                
+                if file_text:
+                    embed.add_field(name="ファイル", value=file_text, inline=False)
                 embed.set_thumbnail(url=message.author.avatar.url)
                 embed.set_footer(text=f"User ID: {message.author.id} | Channel ID: {message.channel.id} | Server ID: {message.guild.id}")
 
