@@ -45,7 +45,7 @@ def run_discord_bot():
         content = message.content
 
         if 'こんにちは' in content:
-            await message.channel.reply('木下だよ！よろしくね♡')
+            await message.reply('木下だよ！よろしくね♡')
 
     @tree.command(name="server_list", description="Botが参加しているサーバー一覧を表示します")
     async def server_list(interaction: discord.Interaction):
