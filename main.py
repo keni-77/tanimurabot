@@ -47,6 +47,14 @@ def run_discord_bot():
         if 'こんにちは' in content:
             await message.channel.reply('木下だよ！よろしくね♡')
 
+    @tree.command(name="server_list", description="Botが参加しているサーバー一覧を表示します")
+    async def server_list(interaction: discord.Interaction):
+
+        guilds = client.guilds
+        text = "\n".join([f"{g.name} : {g.id}" for g in guilds])
+
+        await interaction.response.send_message(f"**参加中のサーバー（{len(guilds)}件）**\n{text}")
+
     # --- Botの実行 ---
     if TOKEN:
         try:
